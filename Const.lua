@@ -1,7 +1,7 @@
 --[[
     Author: Alternator (Massiner of Nathrezim)
     Copyright 2010
-	
+
 	Notes:
 
 --]]
@@ -71,7 +71,7 @@ Const.WispSpellIds[5487]	= 1;		--Bear Form
 Const.WispSpellIds[768]		= 1;		--Cat Form
 Const.WispSpellIds[33943]	= 1;		--Flight Form
 Const.WispSpellIds[40120]	= 1;		--Swift Flight Form
-Const.WispSpellIds[783]		= 1			--Travel Form	
+Const.WispSpellIds[783]		= 1			--Travel Form
 
 
 
@@ -104,13 +104,13 @@ Const.SlashCommands["-enabled"] = {params = "bool", group = "bar"};
 Const.SlashCommands["-info"] = {params = "^()$", group = "bar", requires = {"-bar"}};
 Const.SlashCommands["-technicalinfo"] = {params = "^()$", group = "bar", requires = {"-bar"}};
 Const.SlashCommands["-rename"] = {params = "^%s*(..-)%s*$", group = "bar", requires = {"-bar"}};
-Const.SlashCommands["-hidespec1"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hidespec2"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hidespec3"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hidespec4"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hidevehicle"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hideoverridebar"] = {params = "bool", group = "bar"};
-Const.SlashCommands["-hidepetbattle"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidespec1"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidespec2"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidespec3"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidespec4"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidevehicle"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hideoverridebar"] = {params = "bool", group = "bar"};
+--Const.SlashCommands["-hidepetbattle"] = {params = "bool", group = "bar"};
 Const.SlashCommands["-vismacro"] = {params = "^%s*(.-)%s*$", group = "bar"};		-- I'm tempted to make this one require a bar, but to some degree it is player beware until/if I implement an undo stack
 Const.SlashCommands["-gui"] = {params = "bool", group = "bar"};
 Const.SlashCommands["-alpha"] = {params = "^%s*(%d*%.?%d+)%s*$", group = "bar", validate = function (p) return tonumber(p) <= 1; end};
@@ -128,7 +128,7 @@ Const.SlashCommands["-deleteprofile"] = {params = "^%s*(..-)%s*$", group = "prof
 Const.SlashCommands["-macrocheckdelay"] = {params = "^%s*(%d+)%s*$", group = "globalsettings"};
 Const.SlashCommands["-removemissingmacros"] = {params = "bool", group = "globalsettings"};
 Const.SlashCommands["-forceoffcastonkeydown"] = {params = "bool", group = "globalsettings"};
-Const.SlashCommands["-usecollectionsfavoritemountbutton"] = {params = "bool", group = "globalsettings"};
+--Const.SlashCommands["-usecollectionsfavoritemountbutton"] = {params = "bool", group = "globalsettings"};
 
 
 
