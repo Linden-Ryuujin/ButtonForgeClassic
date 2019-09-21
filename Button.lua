@@ -1535,7 +1535,7 @@ function Button:UpdateUsableSpell()
 end
 function Button:UpdateUsableItem()
 	local IsUsable, NotEnoughMana = IsUsableItem(self.ItemId);
-	IsUsable = IsUsable or PlayerHasToy(self.ItemId);
+	IsUsable = IsUsable --or PlayerHasToy(self.ItemId);
 	if (IsUsable) then
 		self.WIcon:SetVertexColor(1.0, 1.0, 1.0);
 		self.WNormalTexture:SetVertexColor(1.0, 1.0, 1.0);
