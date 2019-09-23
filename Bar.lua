@@ -1,7 +1,7 @@
 --[[
     Author: Alternator (Massiner of Nathrezim)
     Copyright 2010
-	
+
 Notes:	':' syntax represents a function that will be called by an actual BF Bar object
 		'.' syntax represents either a function with no object passed or an event that will be called by a UI object (where the Objects ParentBar member will point at the BF Bar object)
 
@@ -29,7 +29,7 @@ function Bar.New(BarSave)
 	end
 	local NewBar = {};
 	setmetatable(NewBar, Bar);
-	
+
 	NewBar.LeftControls = {};
 	NewBar.TopControls = {};
 	--[[	Frames		]]--
@@ -47,7 +47,7 @@ function Bar.New(BarSave)
 			ControlFrame.DragOnMouseUp = NewBar.DragOnMouseUp;
 			ControlFrame.ParentBar = NewBar;
 			NewBar.ControlFrame = ControlFrame;
-		
+
 		--[[Destroy Frame, this is usually hidden, but will become active when the Destroy mode is enabled, if clicked it will destroy the Bar]]--
 			local DestroyFrame = CreateFrame("FRAME", nil, BFDestroyBarOverlay);
 			DestroyFrame:EnableMouse(true);
@@ -56,7 +56,7 @@ function Bar.New(BarSave)
 			DestroyFrame:SetScript("OnEnter", NewBar.DestroyFrameOnEnter);
 			DestroyFrame.ParentBar = NewBar;
 			NewBar.DestroyFrame = DestroyFrame;
-		
+
 		--[[Button Frame, this contains the actual buttons,	this will also control visibility through a state driver for the buttons]]--
 			local ButtonFrameName = Util.GetButtonFrameName(BarSave["Label"]);
 			local ButtonFrame = CreateFrame("FRAME", ButtonFrameName, UIParent, "SecureHandlerShowHideTemplate");
@@ -66,14 +66,14 @@ function Bar.New(BarSave)
 			ButtonFrame:SetSize(1, 1);
 			ButtonFrame:SetPoint("TOPLEFT", ControlFrame, "TOPLEFT", Const.I, -Const.I);
 			ButtonFrame:Execute([[Buttons = newtable();]]);
-			
+
 			if (Util.ForceOffCastOnKeyDown) then
 				ButtonFrame:SetAttribute("_onshow", [[local B, Key;
 													for i = 1, #Buttons do
 														B = Buttons[i];
-														B:Enable(); 
-														Key = B:GetAttribute("KeyBindValue"); 
-														if (Key) then 
+														B:Enable();
+														Key = B:GetAttribute("KeyBindValue");
+														if (Key) then
 															B:SetBindingClick(false, Key, B);
 														end
 													end]]);	--When the bar is shown enable the buttons
@@ -81,15 +81,15 @@ function Bar.New(BarSave)
 				ButtonFrame:SetAttribute("_onshow", [[local B, Key;
 													for i = 1, #Buttons do
 														B = Buttons[i];
-														B:Enable(); 
-														Key = B:GetAttribute("KeyBindValue"); 
-														if (Key) then 
+														B:Enable();
+														Key = B:GetAttribute("KeyBindValue");
+														if (Key) then
 															B:SetBindingClick(false, Key, B, "KeyBind");
 														end
 													end]]);	--When the bar is shown enable the buttons
 			end
 			ButtonFrame:SetAttribute("_onhide", [[local B, Key;
-												for i = 1, #Buttons do 
+												for i = 1, #Buttons do
 													B = Buttons[i];
 													B:Disable();
 													Key = B:GetAttribute("KeyBindValue");
@@ -128,7 +128,7 @@ function Bar.New(BarSave)
 												else
 													page = 12;
 												end
-												
+
 												for i = 1, #Buttons do
 													B = Buttons[i];
 													id = B:GetAttribute("id");
@@ -136,10 +136,10 @@ function Bar.New(BarSave)
 														B:SetAttribute("action", id + ((page - 1) * 12));
 													end
 												end]]);
-			
+
 			ButtonFrame.ParentBar = NewBar;
 			NewBar.ButtonFrame = ButtonFrame;
-		
+
 		--[[Background Layer, this will contain all controls and is used in resizing]]--
 			local Background = CreateFrame("FRAME", nil, ControlFrame);
 			Background:SetSize(1, 1);
@@ -149,7 +149,7 @@ function Bar.New(BarSave)
 			Background:SetBackdropColor(unpack(Const.BarBackdrop));
 			Background.ParentBar = NewBar;
 			NewBar.Background = Background;
-		
+
 		--[[Advanced Layer, this will contain advanced controls]]--
 			local AdvFrame = CreateFrame("FRAME", nil, BFAdvancedToolsLayer);
 			AdvFrame:SetSize(1, 1);
@@ -157,14 +157,14 @@ function Bar.New(BarSave)
 			AdvFrame:SetScript("OnHide", NewBar.AdvFrameOnShowHide);
 			AdvFrame.ParentBar = NewBar;
 			NewBar.AdvFrame = AdvFrame;
-		
+
 		--[[Left Controls]]--
 			local LeftIconsFrame = CreateFrame("FRAME", nil, ControlFrame);
 			LeftIconsFrame:SetSize(Const.MiniIconSize + Const.BarEdge, 1);
 			LeftIconsFrame:SetPoint("TOPLEFT", Background, "TOPLEFT", 0, 0);
 			LeftIconsFrame:SetClampedToScreen(true);
 			NewBar.LeftIconsFrame = LeftIconsFrame;
-		
+
 		--[[Top Controls]]--
 			local TopIconsFrame = CreateFrame("FRAME", nil, ControlFrame);
 			TopIconsFrame:SetSize(1, Const.MiniIconSize + Const.BarEdge);
@@ -172,7 +172,7 @@ function Bar.New(BarSave)
 			TopIconsFrame:SetPoint("TOPLEFT", LeftIconsFrame, "TOPLEFT", 0, 0);
 			TopIconsFrame:SetClampedToScreen(true);
 			NewBar.TopIconsFrame = TopIconsFrame;
-			
+
 		--[[Tile Texture, used to indicate where new buttons will be created when the cols and rows buttons are used]]--
 			local TileTexture = Background:CreateTexture();
 			TileTexture:SetTexture(Const.ImagesDir.."BarBackdrop.tga", true);
@@ -180,7 +180,7 @@ function Bar.New(BarSave)
 			TileTexture:SetPoint("TOPLEFT", Background, "TOPLEFT", Const.I, -Const.I);
 			TileTexture:Hide();
 			NewBar.TileTexture = TileTexture;
-		
+
 		--[[Label Frame]]--
 			local LabelFrame = CreateFrame("FRAME", nil, ControlFrame);
 			LabelFrame:SetSize(1, 1);
@@ -193,8 +193,8 @@ function Bar.New(BarSave)
 			LabelFrame.ParentBar = NewBar;
 			NewBar.LabelFrame = LabelFrame;
 	--[[	]]--
-	
-	
+
+
 	--[[	Basic Controls		]]--
 		--[[Scale Button]]--
 			NewBar.ScaleButton = UILib.CreateButton(Background, Const.MiniIconSize, Const.MiniIconSize,--parent, width, height
@@ -206,7 +206,7 @@ function Bar.New(BarSave)
 													Util.GetLocaleString("ScaleTooltip"),
 													nil, NewBar.ScaleStart, NewBar.ScaleStop, "ANCHOR_BOTTOMRIGHT");	--OnClick, On M Down, On M Up, Tooltip anchor point
 			NewBar.ScaleButton:SetClampedToScreen(true);
-			NewBar.ScaleButton.ParentBar = NewBar;											
+			NewBar.ScaleButton.ParentBar = NewBar;
 
 		--[[Cols Button]]--
 			NewBar.ColsButton = UILib.CreateButton(Background, 16, 32,		--parent, width, height
@@ -219,7 +219,7 @@ function Bar.New(BarSave)
 													nil, NewBar.ColsStart, NewBar.ColsStop, "ANCHOR_BOTTOMRIGHT");	--OnClick, On M Down, On M Up, Tooltip anchor point
 			--NewBar.ColsButton:SetClampedToScreen(true);
 			NewBar.ColsButton.ParentBar = NewBar;
-			
+
 		--[[Rows Button]]--
 			NewBar.RowsButton = UILib.CreateButton(Background, 32, 16,		--parent, width, height
 													{"TOP", Background, "BOTTOM", 0, 3},	--Point
@@ -231,10 +231,10 @@ function Bar.New(BarSave)
 													nil, NewBar.RowsStart, NewBar.RowsStop, "ANCHOR_BOTTOMRIGHT");	--OnClick, On M Down, On M Up, Tooltip anchor point
 			--NewBar.RowsButton:SetClampedToScreen(true);
 			NewBar.RowsButton.ParentBar = NewBar;
-		
+
 	--[[	]]--
-	
-	
+
+
 	--[[	Advanced Controls		]]--
 		--[[KeyBind Mode]]--
 			NewBar.KBButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height,
@@ -259,7 +259,7 @@ function Bar.New(BarSave)
 												NewBar.ToggleTooltips, nil, nil);	--OnClick, On M Down, On M Up
 			NewBar.TooltipButton.ParentBar = NewBar;
 			table.insert(NewBar.TopControls, NewBar.TooltipButton);
-			
+
 		--[[ButtonLock On Off]]--
 			NewBar.LockButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height,
 												{"TOPRIGHT", TopIconsFrame, "TOPRIGHT", 0 - (Const.MiniIconSize + Const.MiniIconGap) * 3 -Const.BarEdge, -Const.BarEdge},	--Point
@@ -271,7 +271,7 @@ function Bar.New(BarSave)
 												NewBar.ToggleButtonsLocked, nil, nil);	--OnClick, On M Down, On M Up
 			NewBar.LockButton.ParentBar = NewBar;
 			table.insert(NewBar.TopControls, NewBar.LockButton);
-			
+
 		--[[Grid On Off]]--
 			NewBar.GridButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height,
 												{"TOPRIGHT", TopIconsFrame, "TOPRIGHT", 0 - (Const.MiniIconSize + Const.MiniIconGap) * 2 -Const.BarEdge, -Const.BarEdge},	--Point
@@ -282,8 +282,8 @@ function Bar.New(BarSave)
 												Util.GetLocaleString("GridTooltip"),
 												NewBar.ToggleGrid, nil, nil);	--OnClick, On M Down, On M Up
 			NewBar.GridButton.ParentBar = NewBar;
-			table.insert(NewBar.TopControls, NewBar.GridButton);			
-			
+			table.insert(NewBar.TopControls, NewBar.GridButton);
+
 		--[[Send To Front]]--
 			NewBar.STFButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
 														{"TOPRIGHT", TopIconsFrame, "TOPRIGHT", 0 - Const.MiniIconSize - Const.MiniIconGap -Const.BarEdge, -Const.BarEdge},	--Point
@@ -309,7 +309,7 @@ function Bar.New(BarSave)
 			table.insert(NewBar.TopControls, NewBar.STBButton);
 
 
-	--[[	]]--			
+	--[[	]]--
 		--[[Label Edit]]--
 			NewBar.LabelButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height,
 												{"TOPLEFT", TopIconsFrame, "TOPLEFT", Const.BarEdge, -Const.BarEdge},	--Point
@@ -323,36 +323,36 @@ function Bar.New(BarSave)
 			--table.insert(NewBar.LeftControls, NewBar.LabelButton);
 
 		-- a bit hacky - but to get this out sooner rather than a bigger refactor
-			local NumSpecs = GetNumSpecializations() 
-			for i = 1, NumSpecs do
-				--[[Hide On Talent # Button]]--
-				NewBar["HSpec"..i.."Button"] = UILib.CreateButton(Background, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
-														{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * i -Const.BarEdge},	--Point
-														Const.ImagesDir.."Spec"..i.."On.tga",		--Norm
-														nil,								--Push
-														nil,								--Check
-														"Interface/Buttons/ButtonHilight-Square", --Highlight
-														Util.GetLocaleString("HideSpec"..i.."Tooltip"),
-														NewBar["ToggleHSpec"..i], nil, nil);	--OnClick, On M Down, On M Up
-				NewBar["HSpec"..i.."Button"].ParentBar = NewBar;
-				table.insert(NewBar.LeftControls, NewBar["HSpec"..i.."Button"]);
-			end
-		
+			--local NumSpecs = GetNumSpecializations()
+			--for i = 1, NumSpecs do
+			--	--[[Hide On Talent # Button]]--
+			--	NewBar["HSpec"..i.."Button"] = UILib.CreateButton(Background, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
+			--											{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * i -Const.BarEdge},	--Point
+			--											Const.ImagesDir.."Spec"..i.."On.tga",		--Norm
+			--											nil,								--Push
+			--											nil,								--Check
+			--											"Interface/Buttons/ButtonHilight-Square", --Highlight
+			--											Util.GetLocaleString("HideSpec"..i.."Tooltip"),
+			--											NewBar["ToggleHSpec"..i], nil, nil);	--OnClick, On M Down, On M Up
+			--	NewBar["HSpec"..i.."Button"].ParentBar = NewBar;
+			--	table.insert(NewBar.LeftControls, NewBar["HSpec"..i.."Button"]);
+			--end
+
 		--[[Hide On Vehicle Button]]--
-			NewBar.HVehicleButton = UILib.CreateButton(Background, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
-													{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (1 + NumSpecs) -Const.BarEdge},	--Point
-													Const.ImagesDir.."VehicleOff.tga",		--Norm
-													nil,								--Push
-													nil,								--Check
-													"Interface/Buttons/ButtonHilight-Square", --Highlight
-													Util.GetLocaleString("HideVehicleTooltip"),
-													NewBar.ToggleHVehicle, nil, nil);	--OnClick, On M Down, On M Up
-			NewBar.HVehicleButton.ParentBar = NewBar;
-			table.insert(NewBar.LeftControls, NewBar.HVehicleButton);
+			--NewBar.HVehicleButton = UILib.CreateButton(Background, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
+			--										{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (1 + NumSpecs) -Const.BarEdge},	--Point
+			--										Const.ImagesDir.."VehicleOff.tga",		--Norm
+			--										nil,								--Push
+			--										nil,								--Check
+			--										"Interface/Buttons/ButtonHilight-Square", --Highlight
+			--										Util.GetLocaleString("HideVehicleTooltip"),
+			--										NewBar.ToggleHVehicle, nil, nil);	--OnClick, On M Down, On M Up
+			--NewBar.HVehicleButton.ParentBar = NewBar;
+			--table.insert(NewBar.LeftControls, NewBar.HVehicleButton);
 
 		--[[Hide On Override Bar (the special bar)]]--
 			NewBar.HBonusBarButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height
-													{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (2 + NumSpecs) -Const.BarEdge},	--Point
+													{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (2) -Const.BarEdge},	--Point
 													Const.ImagesDir.."BonusBarOff.tga",		--Norm
 													nil,								--Push
 													nil,								--Check
@@ -361,10 +361,10 @@ function Bar.New(BarSave)
 													NewBar.ToggleHBonusBar, nil, nil);	--OnClick, On M Down, On M Up
 			NewBar.HBonusBarButton.ParentBar = NewBar;
 			table.insert(NewBar.LeftControls, NewBar.HBonusBarButton);
-			
+
 		--[[Visibility Driver]]--
 			NewBar.VDButton = UILib.CreateButton(AdvFrame, Const.MiniIconSize, Const.MiniIconSize,		--parent, width, height,
-												{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (3 + NumSpecs) -Const.BarEdge},	--Point
+												{"TOPLEFT", LeftIconsFrame, "TOPLEFT", Const.BarEdge, -(Const.MiniIconSize + Const.MiniIconGap) * (3) -Const.BarEdge},	--Point
 												Const.ImagesDir.."VDriver.tga",			--Norm
 												Const.ImagesDir.."VDriverSet.tga", 			--Push
 												"Interface/Buttons/CheckButtonHilight", 	--Check
@@ -373,7 +373,7 @@ function Bar.New(BarSave)
 												NewBar.InputVD, nil, nil);	--OnClick, On M Down, On M Up
 			NewBar.VDButton.ParentBar = NewBar;
 			table.insert(NewBar.LeftControls, NewBar.VDButton);
-			
+
 	NewBar:Configure(BarSave);
 
 	return NewBar;
@@ -414,7 +414,7 @@ function Bar:PrepareButtonSecureState()
 	end
 
 	-- 2) Combat prep - by definition this will be false! - so umm yeah nothing is in this section (included since there is a secure handler...)
-	
+
 	-- 3) Prep the special action buttons if there is some kind of override bar
 	local page, barType;
 	barType = BFSecureSpecialBarFrame:GetAttribute("bar");
@@ -426,11 +426,11 @@ function Bar:PrepareButtonSecureState()
 		page = 12;
 	end
 	--]]
-	if (HasOverrideActionBar()) then
-		page = 14;
-	else
+	--if (HasOverrideActionBar()) then
+	--	page = 14;
+	--else
 		page = 12;
-	end
+	--end
 	local Buttons = self.Buttons;
 	for i = 1, #Buttons do
 		local B, id;
@@ -483,25 +483,25 @@ function Bar:Configure(BarSave)
 	if (InCombatLockdown()) then
 		return;
 	end
-	
+
 	if (BarSave.BonusBar) then
 		self.Background:SetBackdropColor(unpack(Const.BonusBarBackdrop));
 	else
 		self.Background:SetBackdropColor(unpack(Const.BarBackdrop));
 	end
-	
+
 	self.BarSave = BarSave;
 	self.Cols = 0;
-	self.Rows = 0;	
+	self.Rows = 0;
 	self.Buttons = {};
 	self.ScaleClickTime = 0;
 	self.TempVDSet = BFConfigureLayer:IsShown();
-	
+
 	self.ControlFrame:Show();
 	self.DestroyFrame:Show();
 	self.ButtonFrame:Show();
 	self.AdvFrame:Show();
-	
+
 
 	self:SetPosition(BarSave["Left"], BarSave["Top"]);
 	self:SetScale(BarSave["Scale"]);
@@ -515,14 +515,14 @@ function Bar:Configure(BarSave)
 	else
 		self:SetNumButtons(BarSave["Cols"], BarSave["Rows"]);
 	end
-	
-	self:SetHSpec1(BarSave["HSpec1"]);
-	self:SetHSpec2(BarSave["HSpec2"]);
-	self:SetHSpec3(BarSave["HSpec3"]);
-	self:SetHSpec4(BarSave["HSpec4"]);
-	self:SetHVehicle(BarSave["HVehicle"]);
-	self:SetHBonusBar(BarSave["HBonusBar"]);
-	self:SetHPetBattle(BarSave["HPetBattle"]);
+
+	--self:SetHSpec1(BarSave["HSpec1"]);
+	--self:SetHSpec2(BarSave["HSpec2"]);
+	--self:SetHSpec3(BarSave["HSpec3"]);
+	--self:SetHSpec4(BarSave["HSpec4"]);
+	--self:SetHVehicle(BarSave["HVehicle"]);
+	--self:SetHBonusBar(BarSave["HBonusBar"]);
+	--self:SetHPetBattle(BarSave["HPetBattle"]);
 	self:SetVD(BarSave["VDriver"]);
 	self:SetGridAlwaysOn(BarSave["GridAlwaysOn"]);
 	self:SetButtonsLocked(BarSave["ButtonsLocked"]);
@@ -543,18 +543,18 @@ end
 --]]
 function Bar:SetPosition(Left, Top)
 	local CFrame = self.ControlFrame;
-	
+
 	Left = (Left or CFrame:GetLeft()) + 0;
 	Top = (Top or CFrame:GetTop()) + 0;
-	
+
 	CFrame:ClearAllPoints();
 	CFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", Left, Top);
-	
+
 	Util.RefreshTab(CFrame:GetLeft(), CFrame:GetTop());
-	
+
 	--Left = (CFrame:GetLeft()) + 0;
-	--Top = (CFrame:GetTop()) + 0;	
-	
+	--Top = (CFrame:GetTop()) + 0;
+
 	self.BarSave["Left"] = Left;
 	self.BarSave["Top"] = Top;
 end
@@ -571,13 +571,13 @@ function Bar:SetScale(Scale, NoCheck)
 	local Left, Top = self.ControlFrame:GetLeft(), self.ControlFrame:GetTop();
 	local CurrentScale = self.BarSave["Scale"];
 	Scale = Scale or CurrentScale;
-	
+
 	BFrame:SetScale(Scale);
 	BFrame:ClearAllPoints();
 	BFrame:SetPoint("TOPLEFT", self.ControlFrame, "TOPLEFT", Const.I / Scale, -Const.I / Scale);
 
 	self.BarSave["Scale"] = Scale;
-	
+
 	self:UpdateSize();
 	if (not NoCheck) then
 		if (self.ControlFrame:GetLeft() ~= Left or self.ControlFrame:GetTop() ~= Top) then
@@ -607,16 +607,16 @@ function Bar:SetButtonsFromSave()
 			NewButton.Widget:SetPoint("TOPLEFT", self.ButtonFrame, "TOPLEFT", (c-1) * self.BSize, (1-r) * self.BSize);
 		end
 	end
-	
+
 	self.Cols = Cols;
 	self.Rows = Rows;
-	
+
 	BFrame:Execute([[wipe(Buttons);]]);
 	for i = 1, #Buttons do
 		BFrame:SetFrameRef("Button", Buttons[i].Widget);
 		BFrame:Execute([[tinsert(Buttons, owner:GetFrameRef("Button"));]]);
 	end
-	
+
 	self:PrepareButtonSecureState();
 	--self.ButtonFrame:Execute("Buttons = newtable(owner:GetChildren());");
 	self:UpdateSize();
@@ -637,14 +637,14 @@ function Bar:SetNumButtons(Cols, Rows)
 	if (Cols * Rows < 0) then
 		return;
 	end
-	
+
 	local Buttons = self.Buttons;
 	local BFrame = self.ButtonFrame;
 	--First deallocate any buttons from removed rows
 	if (self.Rows > Rows) then
 		for i = self.Cols*self.Rows, self.Cols*Rows+1, -1 do
 			Util.DeallocateButton(Buttons[i]);
-			table.remove(Buttons);	
+			table.remove(Buttons);
 		end
 		self.Rows = Rows;
 	end
@@ -659,7 +659,7 @@ function Bar:SetNumButtons(Cols, Rows)
 		end
 		self.Cols = Cols;
 	end
-	
+
 	--Now allocate added columns
 	for r = 1, self.Rows do
 		for c = self.Cols+1, Cols do
@@ -671,15 +671,15 @@ function Bar:SetNumButtons(Cols, Rows)
 		end
 	end
 	self.Cols = Cols;
-	
+
 	--And finally allocate added rows
 	for r = self.Rows+1, Rows do
 		for c = 1, Cols do
 			local i = (r-1) * Cols + c;
-			local ButtonSave = {}; 
+			local ButtonSave = {};
 			local NewButton = Util.NewButton(BFrame, ButtonSave, self.BarSave["ButtonsLocked"], self.BarSave["TooltipsOn"], self.BarSave["MacroText"], self.BarSave["KeyBindText"]);
 			table.insert(Buttons, i, NewButton);
-			NewButton.Widget:SetPoint("TOPLEFT", BFrame, "TOPLEFT", (c-1) * self.BSize, (1-r) * self.BSize);			
+			NewButton.Widget:SetPoint("TOPLEFT", BFrame, "TOPLEFT", (c-1) * self.BSize, (1-r) * self.BSize);
 		end
 	end
 	self.Rows = Rows;
@@ -704,7 +704,7 @@ function Bar:SetNumButtons(Cols, Rows)
 		BFrame:SetFrameRef("Button", Buttons[i].Widget);
 		BFrame:Execute([[tinsert(Buttons, owner:GetFrameRef("Button"));]]);
 	end
-	
+
 	self.BarSave["Cols"] = Cols;
 	self.BarSave["Rows"] = Rows;
 	self.BarSave["Buttons"] = TempButtonsSave;
@@ -728,12 +728,12 @@ function Bar:UpdateSize()
 	local CFrame = self.ControlFrame;
 	local Left = CFrame:GetLeft();
 	local Top = CFrame:GetTop();
-		
+
 	self:UpdateControlFrameSize();
 	self:UpdateBackgroundSize();
 	self:UpdateTileSize(self.Cols, self.Rows);
 	self:ReflowUI();
-	
+
 	self.BarSave["Left"] = Left;
 	self.BarSave["Top"] = Top;
 end
@@ -766,7 +766,7 @@ function Bar:UpdateTileSize(Cols, Rows)
 	local Tile = self.TileTexture;
 	local BWidth = (Cols * self.BSize - self.BG) * Scale;
 	local BHeight = (Rows * self.BSize - self.BG) * Scale;
-	
+
 	Tile:SetSize(BWidth, BHeight);
 	Tile:SetTexCoord(0, Cols - self.GFrac, 0, Rows - self.GFrac);
 end
@@ -782,17 +782,17 @@ function Bar:ReflowUI()
 	if (self.LabelFrame:GetWidth() > 0 and not self.Tabbed) then
 		TopSize = TopSize - self.LabelFrame:GetWidth() - Const.MiniIconGap;
 	end
-	
-	local LeftCapacity 		= math.max(math.floor(LeftSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);	
-	local BottomCapacity 	= math.max(math.floor(BottomSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);	
-	local TopCapacity 		= math.max(math.floor(TopSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);	
-	local RightCapacity 	= math.max(math.floor(RightSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);	
+
+	local LeftCapacity 		= math.max(math.floor(LeftSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);
+	local BottomCapacity 	= math.max(math.floor(BottomSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);
+	local TopCapacity 		= math.max(math.floor(TopSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);
+	local RightCapacity 	= math.max(math.floor(RightSize / (Const.MiniIconSize + Const.MiniIconGap)), 0);
 
 
 	if (self.LeftCapacity == LeftCapacity and self.BottomCapacity == BottomCapacity and self.TopCapacity == TopCapacity and	self.RightCapacity == RightCapacity and self.AdvFrameShown == BFAdvancedToolsLayer:IsShown()) then
 		return;
 	end
-	
+
 	self.LeftCapacity = LeftCapacity;
 	self.BottomCapacity = BottomCapacity;
 	self.TopCapacity = TopCapacity;
@@ -803,8 +803,8 @@ function Bar:ReflowUI()
 	if (not BFAdvancedToolsLayer:IsShown()) then
 		LeftCount = LeftCount - 1;
 	end
-	
-	self.LeftIconsFrame:ClearAllPoints();	
+
+	self.LeftIconsFrame:ClearAllPoints();
 	if (LeftCapacity + BottomCapacity < LeftCount) then
 		LeftIconsHeight = Const.BarEdge + (Const.MiniIconSize + Const.MiniIconGap) * LeftCount + Const.MiniIconSize;
 		LeftCapacity = LeftCount;
@@ -821,15 +821,15 @@ function Bar:ReflowUI()
 	if (LeftCapacity > LeftCount) then
 		LeftCapacity = LeftCount;
 	end
-	
+
 	for i = 1, LeftCapacity do
 		self.LeftControls[i]:ClearAllPoints();
 		self.LeftControls[i]:SetPoint("TOPLEFT", self.LeftIconsFrame, "TOPLEFT", Const.BarEdge, - Const.BarEdge - i * (Const.MiniIconSize + Const.MiniIconGap));
 	end
-	
+
 	for i = LeftCapacity + 1, LeftCount do
 		self.LeftControls[i]:ClearAllPoints();
-		self.LeftControls[i]:SetPoint("BOTTOMLEFT", self.LeftIconsFrame, "BOTTOMLEFT", Const.BarEdge + (Const.MiniIconSize + Const.MiniIconGap) * (i - LeftCapacity), Const.BarEdge);		
+		self.LeftControls[i]:SetPoint("BOTTOMLEFT", self.LeftIconsFrame, "BOTTOMLEFT", Const.BarEdge + (Const.MiniIconSize + Const.MiniIconGap) * (i - LeftCapacity), Const.BarEdge);
 	end
 
 	--reflow the upper right buttons
@@ -848,7 +848,7 @@ function Bar:ReflowUI()
 		self.TopIconsFrame:SetPoint("TOPLEFT", self.Background);
 		self.TopIconsFrame:SetPoint("TOPRIGHT", self.Background);
 	end
-	
+
 	if (TopCapacity > TopCount) then
 		TopCapacity = TopCount;
 	end
@@ -856,7 +856,7 @@ function Bar:ReflowUI()
 		self.TopControls[i]:ClearAllPoints();
 		self.TopControls[i]:SetPoint("TOPRIGHT", self.TopIconsFrame, "TOPRIGHT", - Const.BarEdge - (TopCapacity - i) * (Const.MiniIconSize + Const.MiniIconGap), -Const.BarEdge);
 	end
-	
+
 	for i = TopCapacity + 1, TopCount do
 		self.TopControls[i]:ClearAllPoints();
 		self.TopControls[i]:SetPoint("TOPRIGHT", self.TopIconsFrame, "TOPRIGHT", - Const.BarEdge, - Const.BarEdge - (i - TopCapacity) * (Const.MiniIconSize + Const.MiniIconGap));
@@ -922,11 +922,11 @@ function Bar.DragOnMouseDown(ControlFrame, ButtonName)
 	ControlFrame:SetScript("OnUpdate", Bar.DragOnUpdate);
 	local Scale = ControlFrame.ParentBar.BarSave["Scale"];
 	LeftOffsets[2] = ControlFrame.ParentBar.BG * Scale - Const.I;
-	RightOffsets[2] = Const.I - ControlFrame.ParentBar.BG * Scale;	
-	TopOffsets[2] = Const.I - ControlFrame.ParentBar.BG * Scale;	
+	RightOffsets[2] = Const.I - ControlFrame.ParentBar.BG * Scale;
+	TopOffsets[2] = Const.I - ControlFrame.ParentBar.BG * Scale;
 	BottomOffsets[2] = ControlFrame.ParentBar.BG * Scale - Const.I;
 	Util.UpdateBlizzardEnabledBarsMap();
-	
+
 	Util.SetControlFrameAlphas(0);
 	BFAdvancedToolsLayer:SetAlpha(0);
 	GameTooltip_SetDefaultAnchor(GameTooltip, ControlFrame);
@@ -948,7 +948,7 @@ function Bar.DragOnMouseUp(ControlFrame, ButtonName)
 		ControlFrame:ClearAllPoints();
 		ControlFrame:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", self.BarSave["Left"], self.BarSave["Top"]);
 	end
-	
+
 	Util.RefreshTab(ControlFrame:GetLeft(), ControlFrame:GetTop());
 	GameTooltip:Hide();
 	ControlFrame:SetScript("OnUpdate", nil);
@@ -972,9 +972,9 @@ function Bar.DragOnUpdate(Widget)
 			Util.RefreshTab(Widget:GetLeft(), Widget:GetTop());
 		end
 		return;
-	end	
+	end
 	local PDist;
-	
+
 	if (Dist < 144) then
 		Widget.ParentBar.PLeft = Widget.ParentBar.PLeft + WLeft - Left;
 		Widget.ParentBar.PTop = Widget.ParentBar.PTop + WTop - Top;
@@ -1009,7 +1009,7 @@ function Bar.DragOnUpdate(Widget)
 	if (InCombatLockdown() or IsShiftKeyDown()) then
 		return;
 	end
-	
+
 	local ParentBar = Widget.ParentBar;
 	local Left, Right, Top, Bottom = Widget:GetLeft(), Widget:GetRight(), Widget:GetTop(), Widget:GetBottom();
 	local LBar, LPoint, LCalc, LMove, LCoord = Util.FindClosestPoint(Left + Const.I, 	LeftPoints, 	LeftOffsets, 	ParentBar);
@@ -1032,7 +1032,7 @@ function Bar.DragOnUpdate(Widget)
 		HMove = LMove;
 		HCoord = LCoord;
 	end
-	
+
 	if (BCalc < TCalc - 0.1) then
 		VBar = BBar;
 		VPoint = BPoint;
@@ -1046,9 +1046,9 @@ function Bar.DragOnUpdate(Widget)
 		VMove = TMove;
 		VCoord = TCoord;
 	end
-	
 
-	
+
+
 	if (HCalc < Const.ThresholdHSnapSq) then
 		Flag = true;
 		ParentBar.HPressure = ParentBar.HPressure - HMove;
@@ -1066,7 +1066,7 @@ function Bar.DragOnUpdate(Widget)
 	else
 		ParentBar.HPressure = 0;
 	end
-	
+
 	if (VCalc < Const.ThresholdVSnapSq) then
 		Flag = true;
 		ParentBar.VPressure = ParentBar.VPressure - VMove;
@@ -1084,14 +1084,14 @@ function Bar.DragOnUpdate(Widget)
 	else
 		ParentBar.VPressure = 0;
 	end
-	
+
 	if (HLine) then
 		UILib.ShowVerticalLine(HCoord, math.max(HBar:GetTop(), Top) - Const.I, math.min(HBar:GetBottom(), Bottom) + Const.I);
 	end
 	if (VLine) then
 		UILib.ShowHorizontalLine(VCoord, math.min(VBar:GetLeft(), Left) + Const.I, math.max(VBar:GetRight(), Right) - Const.I);
 	end
-	
+
 	if (Flag) then
 		--We need to adjust the position
 		Widget:ClearAllPoints();
@@ -1128,7 +1128,7 @@ function Bar.SendToBack(Widget)
 	end
 end
 function Bar.SendToFront(Widget)
-	if (not InCombatLockdown()) then 
+	if (not InCombatLockdown()) then
 		Util.ReorderBar(Widget.ParentBar, #Util.ActiveBars - 1);
 		Util.RefreshTab(Widget.ParentBar.ControlFrame:GetLeft(), Widget.ParentBar.ControlFrame:GetTop());
 	end
@@ -1139,7 +1139,7 @@ end
 --]]
 function Bar.InputLabel(Widget)
 	local self = Widget.ParentBar;
-	self.LabelFrame:Hide();	
+	self.LabelFrame:Hide();
 	UILib.InputBox(self, self.SetLabel, self.CancelInputLabel, self.BarSave["Label"], 200, {"LEFT", Widget, "RIGHT", 5, 0});
 
 end
@@ -1175,7 +1175,7 @@ end
 
 function Bar.ToggleGrid(Widget)
 	local self = Widget.ParentBar;
-	
+
 	if (not InCombatLockdown()) then
 		self:SetGridAlwaysOn(not self.BarSave["GridAlwaysOn"]);
 	end
@@ -1231,7 +1231,7 @@ end
 --[[
 	GUI disabling is the ability to visually hide the bar and also disable mouse input, but allows the buttons to still respond to mouse clicks
 	... This is not to be confused with the visibility of the bar and it's buttons which go further and fully enable/disable the bar including for keyboard
-	
+
 	GUI will temporarily be forced on when the user is holding an item and holds shift - or during config mode ... possibly come back and collapse these functions down?
 --]]
 function Bar:SetGUI(Value)
@@ -1300,11 +1300,11 @@ function Bar:SetTooltips(Value)
 		self.TooltipButton:SetNormalTexture(Const.ImagesDir.."TooltipOff.tga");
 		self.TooltipButton.Tooltip = Util.GetLocaleString("TooltipsTooltip")..Util.GetLocaleString("Hidden");
 	end
-	
+
 	for i = 1, #self.Buttons do
 		self.Buttons[i]:SetTooltipEnabled(Value);
 	end
-	
+
 	UILib.RefreshTooltip(self.TooltipButton);
 end
 function Bar:GetTooltips()
@@ -1331,7 +1331,7 @@ function Bar:SetButtonsLocked(Value)
 		self.LockButton:SetNormalTexture(Const.ImagesDir.."ButtonsUnlocked.tga");
 		self.LockButton.Tooltip = Util.GetLocaleString("ButtonLockTooltip")..Util.GetLocaleString("Unlocked");
 	end
-	
+
 	for i = 1, #self.Buttons do
 		self.Buttons[i]:SetButtonLock(Value);
 	end
@@ -1344,233 +1344,233 @@ function Bar:GetButtonsLocked()
 		return self.BarSave["ButtonsLocked"], Util.GetLocaleString("Unlocked");
 	end
 end
-function Bar.ToggleHSpec1(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHSpec1(not self.BarSave["HSpec1"]);
-	end
-end
+--function Bar.ToggleHSpec1(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHSpec1(not self.BarSave["HSpec1"]);
+--	end
+--end
+--
+--
+--function Bar.ToggleHSpec2(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHSpec2(not self.BarSave["HSpec2"]);
+--	end
+--end
+--
+--
+--function Bar.ToggleHSpec3(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHSpec3(not self.BarSave["HSpec3"]);
+--	end
+--end
+--
+--
+--function Bar.ToggleHSpec4(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHSpec4(not self.BarSave["HSpec4"]);
+--	end
+--end
 
+--function Bar.ToggleHVehicle(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHVehicle(not self.BarSave["HVehicle"]);
+--	end
+--end
 
-function Bar.ToggleHSpec2(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHSpec2(not self.BarSave["HSpec2"]);
-	end
-end
-
-
-function Bar.ToggleHSpec3(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHSpec3(not self.BarSave["HSpec3"]);
-	end
-end
-
-
-function Bar.ToggleHSpec4(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHSpec4(not self.BarSave["HSpec4"]);
-	end
-end
-
-function Bar.ToggleHVehicle(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHVehicle(not self.BarSave["HVehicle"]);
-	end
-end
-
-function Bar.ToggleHBonusBar(Widget)
-	local self = Widget.ParentBar;
-	
-	if (not InCombatLockdown()) then
-		self:SetHBonusBar(not self.BarSave["HBonusBar"]);
-	end
-end
-
-function Bar:SetHSpec1(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HSpec1"];
-		end
-		self.BarSave["HSpec1"] = Value;
-		if (self.HSpec1Button) then
-			if (Value) then
-				self.HSpec1Button:SetNormalTexture(Const.ImagesDir.."Spec1Off.tga");
-				self.HSpec1Button.Tooltip = Util.GetLocaleString("HideSpec1Tooltip")..Util.GetLocaleString("Hidden");
-			else
-				self.HSpec1Button:SetNormalTexture(Const.ImagesDir.."Spec1On.tga");			
-				self.HSpec1Button.Tooltip = Util.GetLocaleString("HideSpec1Tooltip")..Util.GetLocaleString("Shown");
-			end
-			self:SetVD(self.BarSave["VDriver"]);
-			UILib.RefreshTooltip(self.HSpec1Button);
-		end
-	end
-end
-function Bar:GetHSpec1()
-	if (self.BarSave["HSpec1"]) then
-		return self.BarSave["HSpec1"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HSpec1"], Util.GetLocaleString("Shown");
-	end
-end
-function Bar:SetHSpec2(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HSpec2"];
-		end
-		self.BarSave["HSpec2"] = Value;
-		if (self.HSpec2Button) then
-			if (Value) then
-				self.HSpec2Button:SetNormalTexture(Const.ImagesDir.."Spec2Off.tga");
-				self.HSpec2Button.Tooltip = Util.GetLocaleString("HideSpec2Tooltip")..Util.GetLocaleString("Hidden");
-			else
-				self.HSpec2Button:SetNormalTexture(Const.ImagesDir.."Spec2On.tga");			
-				self.HSpec2Button.Tooltip = Util.GetLocaleString("HideSpec2Tooltip")..Util.GetLocaleString("Shown");
-			end
-			self:SetVD(self.BarSave["VDriver"]);
-			UILib.RefreshTooltip(self.HSpec2Button);
-		end
-	end
-end
-function Bar:GetHSpec2()
-	if (self.BarSave["HSpec2"]) then
-		return self.BarSave["HSpec2"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HSpec2"], Util.GetLocaleString("Shown");
-	end
-end
-function Bar:SetHSpec3(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HSpec3"];
-		end
-		self.BarSave["HSpec3"] = Value;
-		if (self.HSpec3Button) then
-			if (Value) then
-				self.HSpec3Button:SetNormalTexture(Const.ImagesDir.."Spec3Off.tga");
-				self.HSpec3Button.Tooltip = Util.GetLocaleString("HideSpec3Tooltip")..Util.GetLocaleString("Hidden");
-			else
-				self.HSpec3Button:SetNormalTexture(Const.ImagesDir.."Spec3On.tga");			
-				self.HSpec3Button.Tooltip = Util.GetLocaleString("HideSpec3Tooltip")..Util.GetLocaleString("Shown");
-			end
-			self:SetVD(self.BarSave["VDriver"]);
-			UILib.RefreshTooltip(self.HSpec3Button);
-		end
-	end
-end
-function Bar:GetHSpec3()
-	if (self.BarSave["HSpec3"]) then
-		return self.BarSave["HSpec3"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HSpec3"], Util.GetLocaleString("Shown");
-	end
-end
-function Bar:SetHSpec4(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HSpec4"];
-		end
-		self.BarSave["HSpec4"] = Value;
-		if (self.HSpec4Button) then
-			if (Value) then
-				self.HSpec4Button:SetNormalTexture(Const.ImagesDir.."Spec4Off.tga");
-				self.HSpec4Button.Tooltip = Util.GetLocaleString("HideSpec4Tooltip")..Util.GetLocaleString("Hidden");
-			else
-				self.HSpec4Button:SetNormalTexture(Const.ImagesDir.."Spec4On.tga");			
-				self.HSpec4Button.Tooltip = Util.GetLocaleString("HideSpec4Tooltip")..Util.GetLocaleString("Shown");
-			end
-			self:SetVD(self.BarSave["VDriver"]);
-			UILib.RefreshTooltip(self.HSpec4Button);
-		end
-	end
-end
-function Bar:GetHSpec4()
-	if (self.BarSave["HSpec4"]) then
-		return self.BarSave["HSpec4"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HSpec4"], Util.GetLocaleString("Shown");
-	end
-end
-function Bar:SetHVehicle(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HVehicle"];
-		end
-		self.BarSave["HVehicle"] = Value;
-		if (Value) then
-			self.HVehicleButton:SetNormalTexture(Const.ImagesDir.."VehicleOff.tga");
-			self.HVehicleButton.Tooltip = Util.GetLocaleString("HideVehicleTooltip")..Util.GetLocaleString("Hidden");
-		else
-			self.HVehicleButton:SetNormalTexture(Const.ImagesDir.."VehicleOn.tga");			
-			self.HVehicleButton.Tooltip = Util.GetLocaleString("HideVehicleTooltip")..Util.GetLocaleString("Shown");
-		end
-		self:SetVD(self.BarSave["VDriver"]);
-		UILib.RefreshTooltip(self.HVehicleButton);
-	end
-end
-function Bar:GetHVehicle()
-	if (self.BarSave["HVehicle"]) then
-		return self.BarSave["HVehicle"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HVehicle"], Util.GetLocaleString("Shown");
-	end
-end
-function Bar:SetHBonusBar(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HBonusBar"];
-		end
-		self.BarSave["HBonusBar"] = Value;
-		if (Value) then
-			self.HBonusBarButton:SetNormalTexture(Const.ImagesDir.."BonusBarOff.tga");
-			self.HBonusBarButton.Tooltip = Util.GetLocaleString("HideBonusBarTooltip")..Util.GetLocaleString("Hidden");
-		else
-			self.HBonusBarButton:SetNormalTexture(Const.ImagesDir.."BonusBarOn.tga");			
-			self.HBonusBarButton.Tooltip = Util.GetLocaleString("HideBonusBarTooltip")..Util.GetLocaleString("Shown");
-		end
-		self:SetVD(self.BarSave["VDriver"]);
-		UILib.RefreshTooltip(self.HBonusBarButton);
-	end
-end
-function Bar:GetHBonusBar()
-	if (self.BarSave["HBonusBar"]) then
-		return self.BarSave["HBonusBar"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HBonusBar"], Util.GetLocaleString("Shown");
-	end
-end
-
-function Bar:SetHPetBattle(Value)
-	if (not InCombatLockdown()) then
-		if (Value == "toggle") then
-			Value = not self.BarSave["HPetBattle"];
-		end
-		self.BarSave["HPetBattle"] = Value;
-		self:SetVD(self.BarSave["VDriver"]);
-	end
-end
-function Bar:GetHPetBattle()
-	if (self.BarSave["HPetBattle"]) then
-		return self.BarSave["HPetBattle"], Util.GetLocaleString("Hidden");
-	else
-		return self.BarSave["HPetBattle"], Util.GetLocaleString("Shown");
-	end
-end
+--function Bar.ToggleHBonusBar(Widget)
+--	local self = Widget.ParentBar;
+--
+--	if (not InCombatLockdown()) then
+--		self:SetHBonusBar(not self.BarSave["HBonusBar"]);
+--	end
+--end
+--
+--function Bar:SetHSpec1(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HSpec1"];
+--		end
+--		self.BarSave["HSpec1"] = Value;
+--		if (self.HSpec1Button) then
+--			if (Value) then
+--				self.HSpec1Button:SetNormalTexture(Const.ImagesDir.."Spec1Off.tga");
+--				self.HSpec1Button.Tooltip = Util.GetLocaleString("HideSpec1Tooltip")..Util.GetLocaleString("Hidden");
+--			else
+--				self.HSpec1Button:SetNormalTexture(Const.ImagesDir.."Spec1On.tga");
+--				self.HSpec1Button.Tooltip = Util.GetLocaleString("HideSpec1Tooltip")..Util.GetLocaleString("Shown");
+--			end
+--			self:SetVD(self.BarSave["VDriver"]);
+--			UILib.RefreshTooltip(self.HSpec1Button);
+--		end
+--	end
+--end
+--function Bar:GetHSpec1()
+--	if (self.BarSave["HSpec1"]) then
+--		return self.BarSave["HSpec1"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HSpec1"], Util.GetLocaleString("Shown");
+--	end
+--end
+--function Bar:SetHSpec2(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HSpec2"];
+--		end
+--		self.BarSave["HSpec2"] = Value;
+--		if (self.HSpec2Button) then
+--			if (Value) then
+--				self.HSpec2Button:SetNormalTexture(Const.ImagesDir.."Spec2Off.tga");
+--				self.HSpec2Button.Tooltip = Util.GetLocaleString("HideSpec2Tooltip")..Util.GetLocaleString("Hidden");
+--			else
+--				self.HSpec2Button:SetNormalTexture(Const.ImagesDir.."Spec2On.tga");
+--				self.HSpec2Button.Tooltip = Util.GetLocaleString("HideSpec2Tooltip")..Util.GetLocaleString("Shown");
+--			end
+--			self:SetVD(self.BarSave["VDriver"]);
+--			UILib.RefreshTooltip(self.HSpec2Button);
+--		end
+--	end
+--end
+--function Bar:GetHSpec2()
+--	if (self.BarSave["HSpec2"]) then
+--		return self.BarSave["HSpec2"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HSpec2"], Util.GetLocaleString("Shown");
+--	end
+--end
+--function Bar:SetHSpec3(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HSpec3"];
+--		end
+--		self.BarSave["HSpec3"] = Value;
+--		if (self.HSpec3Button) then
+--			if (Value) then
+--				self.HSpec3Button:SetNormalTexture(Const.ImagesDir.."Spec3Off.tga");
+--				self.HSpec3Button.Tooltip = Util.GetLocaleString("HideSpec3Tooltip")..Util.GetLocaleString("Hidden");
+--			else
+--				self.HSpec3Button:SetNormalTexture(Const.ImagesDir.."Spec3On.tga");
+--				self.HSpec3Button.Tooltip = Util.GetLocaleString("HideSpec3Tooltip")..Util.GetLocaleString("Shown");
+--			end
+--			self:SetVD(self.BarSave["VDriver"]);
+--			UILib.RefreshTooltip(self.HSpec3Button);
+--		end
+--	end
+--end
+--function Bar:GetHSpec3()
+--	if (self.BarSave["HSpec3"]) then
+--		return self.BarSave["HSpec3"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HSpec3"], Util.GetLocaleString("Shown");
+--	end
+--end
+--function Bar:SetHSpec4(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HSpec4"];
+--		end
+--		self.BarSave["HSpec4"] = Value;
+--		if (self.HSpec4Button) then
+--			if (Value) then
+--				self.HSpec4Button:SetNormalTexture(Const.ImagesDir.."Spec4Off.tga");
+--				self.HSpec4Button.Tooltip = Util.GetLocaleString("HideSpec4Tooltip")..Util.GetLocaleString("Hidden");
+--			else
+--				self.HSpec4Button:SetNormalTexture(Const.ImagesDir.."Spec4On.tga");
+--				self.HSpec4Button.Tooltip = Util.GetLocaleString("HideSpec4Tooltip")..Util.GetLocaleString("Shown");
+--			end
+--			self:SetVD(self.BarSave["VDriver"]);
+--			UILib.RefreshTooltip(self.HSpec4Button);
+--		end
+--	end
+--end
+--function Bar:GetHSpec4()
+--	if (self.BarSave["HSpec4"]) then
+--		return self.BarSave["HSpec4"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HSpec4"], Util.GetLocaleString("Shown");
+--	end
+--end
+--function Bar:SetHVehicle(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HVehicle"];
+--		end
+--		self.BarSave["HVehicle"] = Value;
+--		if (Value) then
+--			self.HVehicleButton:SetNormalTexture(Const.ImagesDir.."VehicleOff.tga");
+--			self.HVehicleButton.Tooltip = Util.GetLocaleString("HideVehicleTooltip")..Util.GetLocaleString("Hidden");
+--		else
+--			self.HVehicleButton:SetNormalTexture(Const.ImagesDir.."VehicleOn.tga");
+--			self.HVehicleButton.Tooltip = Util.GetLocaleString("HideVehicleTooltip")..Util.GetLocaleString("Shown");
+--		end
+--		self:SetVD(self.BarSave["VDriver"]);
+--		UILib.RefreshTooltip(self.HVehicleButton);
+--	end
+--end
+--function Bar:GetHVehicle()
+--	if (self.BarSave["HVehicle"]) then
+--		return self.BarSave["HVehicle"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HVehicle"], Util.GetLocaleString("Shown");
+--	end
+--end
+--function Bar:SetHBonusBar(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HBonusBar"];
+--		end
+--		self.BarSave["HBonusBar"] = Value;
+--		if (Value) then
+--			self.HBonusBarButton:SetNormalTexture(Const.ImagesDir.."BonusBarOff.tga");
+--			self.HBonusBarButton.Tooltip = Util.GetLocaleString("HideBonusBarTooltip")..Util.GetLocaleString("Hidden");
+--		else
+--			self.HBonusBarButton:SetNormalTexture(Const.ImagesDir.."BonusBarOn.tga");
+--			self.HBonusBarButton.Tooltip = Util.GetLocaleString("HideBonusBarTooltip")..Util.GetLocaleString("Shown");
+--		end
+--		self:SetVD(self.BarSave["VDriver"]);
+--		UILib.RefreshTooltip(self.HBonusBarButton);
+--	end
+--end
+--function Bar:GetHBonusBar()
+--	if (self.BarSave["HBonusBar"]) then
+--		return self.BarSave["HBonusBar"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HBonusBar"], Util.GetLocaleString("Shown");
+--	end
+--end
+--
+--function Bar:SetHPetBattle(Value)
+--	if (not InCombatLockdown()) then
+--		if (Value == "toggle") then
+--			Value = not self.BarSave["HPetBattle"];
+--		end
+--		self.BarSave["HPetBattle"] = Value;
+--		self:SetVD(self.BarSave["VDriver"]);
+--	end
+--end
+--function Bar:GetHPetBattle()
+--	if (self.BarSave["HPetBattle"]) then
+--		return self.BarSave["HPetBattle"], Util.GetLocaleString("Hidden");
+--	else
+--		return self.BarSave["HPetBattle"], Util.GetLocaleString("Shown");
+--	end
+--end
 
 --[[
 		Handle updating the Visibility State Driver
 --]]
 function Bar.InputVD(Widget)
 	local self = Widget.ParentBar;
-	
+
 	if (not InCombatLockdown()) then
 		UILib.InputBox(self, self.SetVD, self.CancelInputVD, self.BarSave["VDriver"], 300, {"LEFT", Widget, "RIGHT", 5, 0});
 	end
@@ -1685,7 +1685,7 @@ function Bar.ColsStart(Widget)
 	local self = Widget.ParentBar;
 	local Background = self.Background;
 	GameTooltip_Hide();
-	
+
 	self.TileTexture:Show();
 	Background:SetScript("OnSizeChanged", self.ColsOnSizeChanged);
 	Background:SetResizable(true);
@@ -1705,7 +1705,7 @@ function Bar.ColsStop(Widget)
 		Buttons[i]:Fade(false);
 	end
 	self:SetNumButtons(NumCols, self.Rows);
-	
+
 	self:UpdateSize();
 end
 function Bar.ColsOnSizeChanged(Widget, Width, Height)
@@ -1717,7 +1717,7 @@ function Bar.ColsOnSizeChanged(Widget, Width, Height)
 	local Scale = self.BarSave["Scale"]
 	local NumCols = max(math.floor((Width - Const.I2 + self.BG * Scale) / (self.BSize * Scale) + 0.00001), 1);
 	local i = 1;
-	
+
 	for r = 1, self.Rows do
 		for c = 1, self.Cols do
 			if (c > NumCols) then
@@ -1728,7 +1728,7 @@ function Bar.ColsOnSizeChanged(Widget, Width, Height)
 			i = i + 1;
 		end
 	end
-	
+
 
 	if (Width < Const.BS * Scale + Const.I2) then
 		self.Background:SetWidth(Const.BS * Scale + Const.I2);
@@ -1750,7 +1750,7 @@ function Bar.RowsStart(Widget)
 	local self = Widget.ParentBar;
 	local Background = self.Background;
 	GameTooltip_Hide();
-	
+
 	self.TileTexture:Show();
 	Background:SetScript("OnSizeChanged", self.RowsOnSizeChanged);
 	Background:SetResizable(true);
@@ -1783,7 +1783,7 @@ function Bar.RowsOnSizeChanged(Widget, Width, Height)
 	local Scale = self.BarSave["Scale"];
 	local NumRows = max(math.floor((Height - Const.I2 + self.BG * Scale) / (self.BSize * Scale) + 0.00001), 1);
 	local i = 1;
-	
+
 	for r = 1, self.Rows do
 		for c = 1, self.Cols do
 			if (r > NumRows) then
@@ -1794,7 +1794,7 @@ function Bar.RowsOnSizeChanged(Widget, Width, Height)
 			i = i + 1;
 		end
 	end
-	
+
 
 	if (Height < Const.BS * Scale + Const.I2) then
 		self.Background:SetHeight(Const.BS * Scale + Const.I2);
@@ -1857,8 +1857,8 @@ function Bar.ScaleOnSizeChanged(Widget, Width, Height)
 	Height = Top - MouseY / UIScale;
 	local UnscaledWidth = self.Cols * self.BSize - self.BG;
 	local UnscaledHeight = self.Rows * self.BSize - self.BG;
-	
-	--Now calculate the scale needed to space the buttons in the bars new size in each dir	
+
+	--Now calculate the scale needed to space the buttons in the bars new size in each dir
 	local ScaleX = (Width - Const.I2) / UnscaledWidth;
 	local ScaleY = (Height - Const.I2) / UnscaledHeight;
 	local Scale;
@@ -1868,7 +1868,7 @@ function Bar.ScaleOnSizeChanged(Widget, Width, Height)
 	else
 		Scale = ScaleY;
 	end
-	
+
 	if (Scale < Const.MinScale) then
 		Scale = Const.MinScale;
 	end
@@ -1883,7 +1883,7 @@ function Bar:SetMacroText(Value)
 		Value = not self.BarSave["MacroText"];
 	end
 	self.BarSave["MacroText"] = Value;
-		
+
 	for i = 1, #self.Buttons do
 		self.Buttons[i]:SetMacroText(Value);
 	end
@@ -1902,7 +1902,7 @@ function Bar:SetKeyBindText(Value)
 		Value = not self.BarSave["KeyBindText"];
 	end
 	self.BarSave["KeyBindText"] = Value;
-	
+
 	for i = 1, #self.Buttons do
 		self.Buttons[i]:SetKeyBindText(Value);
 	end
@@ -1921,11 +1921,11 @@ Bar.GFrac = Const.GFrac;
 function Bar:SetButtonGap(Value)
 	if (not InCombatLockdown()) then
 		self.BarSave["ButtonGap"] = Value;
-	
+
 		self.BG = Value;
 		self.BSize = Const.BS + self.BG;
 		self.GFrac = self.BG / self.BSize;
-		
+
 		for r = 1, self.Rows do
 			for c = 1, self.Cols do
 				local i = (r-1) * self.Cols + c;

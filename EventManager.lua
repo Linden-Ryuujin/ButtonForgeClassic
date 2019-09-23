@@ -1,7 +1,7 @@
 --[[
     Author: Alternator (Massiner of Nathrezim)
     Copyright 2010
-	
+
 Notes:
 
 
@@ -48,7 +48,7 @@ Full.RefEquipped = false;
 Full.RefUsable = false;
 Full.RefCooldown = false;
 Full.RefText = false;
-Full.RefFlyouts = false;
+--Full.RefFlyouts = false;
 Full.RefGlow = false;
 Full.RefConditional = false;
 
@@ -77,22 +77,22 @@ end
 --[[------------------------------------------------------------------------
 	Misc Resync type events
 --------------------------------------------------------------------------]]
-Misc:RegisterEvent("COMPANION_LEARNED");			--resync companions
-Misc:RegisterEvent("PET_JOURNAL_LIST_UPDATE");		--textures etc should now be available
+--Misc:RegisterEvent("COMPANION_LEARNED");			--resync companions
+--Misc:RegisterEvent("PET_JOURNAL_LIST_UPDATE");		--textures etc should now be available
 Misc:RegisterEvent("LEARNED_SPELL_IN_TAB");			--refresh/promote spells
 Misc:RegisterEvent("SPELLS_CHANGED");				--refresh spells	depending on play style this could trigger often, we will instead rely on other events to keep spells synched
 Misc:RegisterEvent("CHARACTER_POINTS_CHANGED");		--refresh spells
 Misc:RegisterEvent("UPDATE_MACROS");				--resync macros
-Misc:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");	--refresh spells (and prevent spell promotion)
-Misc:RegisterEvent("EQUIPMENT_SETS_CHANGED");		--resync equip sets
+--Misc:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");	--refresh spells (and prevent spell promotion)
+--Misc:RegisterEvent("EQUIPMENT_SETS_CHANGED");		--resync equip sets
 Misc:RegisterEvent("PLAYER_REGEN_DISABLED");		--enter combat
-Misc:RegisterEvent("PLAYER_REGEN_ENABLED");			--out of combat 
+Misc:RegisterEvent("PLAYER_REGEN_ENABLED");			--out of combat
 Misc:RegisterEvent("CURSOR_UPDATE");				--possibly show button grids
 Misc:RegisterEvent("ACTIONBAR_SHOWGRID");			--...
 Misc:RegisterEvent("ACTIONBAR_HIDEGRID");			--...
 Misc:RegisterEvent("BAG_UPDATE");					--Refresh the bag item index cache
 Misc:RegisterEvent("UNIT_INVENTORY_CHANGED");			--Refresh the inv (equipped) item index cache
-Misc:RegisterEvent("SPELL_FLYOUT_UPDATE");			--Refresh the spell_flyouts (mainly due to default blizz code that forces my custom flyout border off)
+--Misc:RegisterEvent("SPELL_FLYOUT_UPDATE");			--Refresh the spell_flyouts (mainly due to default blizz code that forces my custom flyout border off)
 Misc:RegisterEvent("UI_SCALE_CHANGED");
 Misc:RegisterEvent("MODIFIER_STATE_CHANGED");
 
@@ -104,19 +104,19 @@ Misc:RegisterEvent("MODIFIER_STATE_CHANGED");
 --------------------------------------------------------------------------]]
 Checked:RegisterEvent("TRADE_SKILL_SHOW");
 Checked:RegisterEvent("TRADE_SKILL_CLOSE");
-Checked:RegisterEvent("ARCHAEOLOGY_TOGGLE");
-Checked:RegisterEvent("ARCHAEOLOGY_CLOSED");
-Checked:RegisterEvent("COMPANION_UPDATE");
-Checked:RegisterEvent("PET_BATTLE_PET_CHANGED");
+--Checked:RegisterEvent("ARCHAEOLOGY_TOGGLE");
+--Checked:RegisterEvent("ARCHAEOLOGY_CLOSED");
+--Checked:RegisterEvent("COMPANION_UPDATE");
+--Checked:RegisterEvent("PET_BATTLE_PET_CHANGED");
 Checked:RegisterEvent("CURRENT_SPELL_CAST_CHANGED");
 Checked:RegisterEvent("ACTIONBAR_UPDATE_STATE");		--I am not certain how excessive this event is yet, it may not be needed and is a canidate to remove
 Checked:RegisterEvent("PLAYER_ENTER_COMBAT");
 Checked:RegisterEvent("PLAYER_LEAVE_COMBAT");
 Checked:RegisterEvent("START_AUTOREPEAT_SPELL");
 Checked:RegisterEvent("STOP_AUTOREPEAT_SPELL");
-Checked:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
-Checked:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
-Checked:RegisterEvent("ACTIONBAR_PAGE_CHANGED");	
+--Checked:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
+--Checked:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
+Checked:RegisterEvent("ACTIONBAR_PAGE_CHANGED");
 
 --[[------------------------------------------------------------------------
 	Equipped Events
@@ -132,13 +132,13 @@ Usable:RegisterEvent("PLAYER_CONTROL_LOST");
 Usable:RegisterEvent("PLAYER_CONTROL_GAINED");
 Usable:RegisterEvent("BAG_UPDATE");
 Usable:RegisterEvent("MINIMAP_UPDATE_ZOOM");
-Usable:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
-Usable:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
+--Usable:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
+--Usable:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
 Usable:RegisterEvent("ACTIONBAR_UPDATE_USABLE");	--Use this as a backup...
-Usable:RegisterEvent("VEHICLE_UPDATE");
-Usable:RegisterEvent("ACTIONBAR_PAGE_CHANGED");	
+--Usable:RegisterEvent("VEHICLE_UPDATE");
+Usable:RegisterEvent("ACTIONBAR_PAGE_CHANGED");
 --BFA fix: UPDATE_WORLD_STATES is deprecated
--- Usable:RegisterEvent("UPDATE_WORLD_STATES");	
+-- Usable:RegisterEvent("UPDATE_WORLD_STATES");
 
 
 --[[------------------------------------------------------------------------
@@ -162,8 +162,8 @@ Text:RegisterEvent("UNIT_AURA");
 --[[------------------------------------------------------------------------
 	Glow Events
 --------------------------------------------------------------------------]]
-Glow:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW");
-Glow:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE");
+--Glow:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW");
+--Glow:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE");
 
 
 --[[------------------------------------------------------------------------
@@ -187,21 +187,21 @@ Flash:RegisterEvent("STOP_AUTOREPEAT_SPELL");
 --------------------------------------------------------------------------]]
 Conditional:RegisterEvent("MODIFIER_STATE_CHANGED");	--mod:
 Conditional:RegisterEvent("PLAYER_TARGET_CHANGED");		--harm, help, etc
-Conditional:RegisterEvent("PLAYER_FOCUS_CHANGED");		--harm, help, etc
+--Conditional:RegisterEvent("PLAYER_FOCUS_CHANGED");		--harm, help, etc
 Conditional:RegisterEvent("ACTIONBAR_PAGE_CHANGED");	--actionbar
-Conditional:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
-Conditional:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
+--Conditional:RegisterEvent("UPDATE_OVERRIDE_ACTIONBAR");
+--Conditional:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR");
 Conditional:RegisterEvent("PLAYER_REGEN_ENABLED");		--nocombat
 Conditional:RegisterEvent("PLAYER_REGEN_DISABLED");		--combat
 Conditional:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START");	--channel:
 Conditional:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP");	--channel:
 Conditional:RegisterEvent("PLAYER_EQUIPMENT_CHANGED");	--equipped:
-Conditional:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");	--spec:
+--Conditional:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED");	--spec:
 Conditional:RegisterEvent("UPDATE_SHAPESHIFT_COOLDOWN");	--stance/form:
 Conditional:RegisterEvent("UPDATE_SHAPESHIFT_FORM");	--stance/form:
 Conditional:RegisterEvent("UPDATE_STEALTH");			--stealth
-Conditional:RegisterEvent("UNIT_ENTERED_VEHICLE");		--vehicleui
-Conditional:RegisterEvent("UNIT_EXITED_VEHICLE");		--vehicleui
+--Conditional:RegisterEvent("UNIT_ENTERED_VEHICLE");		--vehicleui
+--Conditional:RegisterEvent("UNIT_EXITED_VEHICLE");		--vehicleui
 Conditional:RegisterEvent("MINIMAP_UPDATE_ZOOM");		--indoors/outdoors
 Conditional:RegisterEvent("ACTIONBAR_SLOT_CHANGED");	--This event is excessive, the system is designed not to need it; although at times it may provide slightly (very slightly) faster macro refreshes
 
@@ -218,7 +218,7 @@ Conditional:RegisterEvent("ACTIONBAR_SLOT_CHANGED");	--This event is excessive, 
 	Full Events (includes init events)
 ---------------------------------------------------------------------------]]
 Full:RegisterEvent("PLAYER_ENTERING_WORLD");		--Both Full Refresh, and also Spell/Companion cache (definte spell, possibly companion)
-Full:RegisterEvent("COMPANION_UPDATE");				--Cache companion (possibly... not used here after init)
+--Full:RegisterEvent("COMPANION_UPDATE");				--Cache companion (possibly... not used here after init)
 Full:RegisterEvent("VARIABLES_LOADED");				--Macros are available
 Full:RegisterEvent("ADDON_LOADED");					--Saved info is available
 
@@ -245,9 +245,9 @@ function Full:InitialOnEvent(Event, Arg1)
 
 	elseif (Event == "VARIABLES_LOADED") then
 		self.MacrosLoaded = true;
-		
-	elseif (Event == "COMPANION_UPDATE") then
-		Util.CacheCompanions();	--Just while we are starting up we are trying to cache companion info... there is no reliable event to let us know when this is possible - it could be this overloaded event or none at all?!?
+
+	--elseif (Event == "COMPANION_UPDATE") then
+	--	Util.CacheCompanions();	--Just while we are starting up we are trying to cache companion info... there is no reliable event to let us know when this is possible - it could be this overloaded event or none at all?!?
 	end
 
 	if (Util.CompanionsCached and self.AddonLoaded and self.MacrosLoaded and self.SpellsCached) then
@@ -259,7 +259,7 @@ function Full:InitialOnEvent(Event, Arg1)
 				--Util.LBF:RegisterSkinCallback("Button Forge", Util.ButtonFacadeCallback, Util);
 			end
 		end
-		
+
 		Util.UpdateSavedData();
 		Util.Load();
 		Util.RefreshCompanions();
@@ -270,7 +270,7 @@ function Full:InitialOnEvent(Event, Arg1)
 
 
 		--self:SetScript("OnUpdate", self.OnUpdate);
-		self:UnregisterEvent("COMPANION_UPDATE");
+		--self:UnregisterEvent("COMPANION_UPDATE");
 	end
 end
 
@@ -323,11 +323,11 @@ function Full:OnUpdate(Elapsed)
 				ActiveButtons[i]:UpdateTextCount();
 			end
 		end
-		if (self.RefFlyouts) then
-			for i = 1, #ActiveButtons do
-				ActiveButtons[i]:UpdateFlyout();
-			end
-		end
+		--if (self.RefFlyouts) then
+		--	for i = 1, #ActiveButtons do
+		--		ActiveButtons[i]:UpdateFlyout();
+		--	end
+		--end
 		if (self.RefGlow) then
 			for i = 1, #ActiveButtons do
 				ActiveButtons[i]:UpdateGlow();
@@ -346,7 +346,7 @@ function Full:OnUpdate(Elapsed)
 		self.RefUsable = false;
 		self.RefCooldown = false;
 		self.RefText = false;
-		self.RefFlyouts = false;
+		--self.RefFlyouts = false;
 		self.RefGlow = false;
 		self.RefConditional = false;
 	end
@@ -404,7 +404,7 @@ Conditional:SetScript("OnEvent", Conditional.OnEvent);
 --[[--------------------------------------------------------------------------------------------------------------------------]]
 
 
-function Misc:OnEvent(Event, ...)	
+function Misc:OnEvent(Event, ...)
 	if (Event == "CURSOR_UPDATE") then
 		local Command = GetCursorInfo();
 		if (Command == "item") then
@@ -427,13 +427,13 @@ function Misc:OnEvent(Event, ...)
 			self.RefreshBarStrata = true;
 			self.RefreshBarGUIStatus = true;
 			self:SetScript("OnUpdate", self.OnUpdate);
-		end		
+		end
 	elseif (Event == "ACTIONBAR_SHOWGRID") then
 		Util.CursorAction = true;
 		Util.RefreshGridStatus();
 		Util.RefreshBarStrata();
 		Util.RefreshBarGUIStatus();
-					
+
 	elseif (Event == "ACTIONBAR_HIDEGRID") then
 		Util.CursorAction = false;
 		Util.RefreshGridStatus();
@@ -442,49 +442,49 @@ function Misc:OnEvent(Event, ...)
 
 	elseif (Event == "BAG_UPDATE") then
 		Util.CacheBagItems();
-	
+
 	elseif (Event == "UNIT_INVENTORY_CHANGED") then
 		Util.CacheInvItems();
-		
-	elseif (Event == "PET_JOURNAL_LIST_UPDATE") then
-		Util.RefreshBattlePets();
-		
-	elseif (Event == "SPELL_FLYOUT_UPDATE") then
-		Full.RefreshButtons = true;
-		Full.RefFlyouts = true;
-		
+
+	--elseif (Event == "PET_JOURNAL_LIST_UPDATE") then
+	--	Util.RefreshBattlePets();
+
+	--elseif (Event == "SPELL_FLYOUT_UPDATE") then
+	--	Full.RefreshButtons = true;
+	--	Full.RefFlyouts = true;
+
 	elseif (Event == "UPDATE_MACROS") then
 		Util.UpdateMacroEventCount = Util.UpdateMacroEventCount + 1;	--2 update macro events need to have run before we can start refreshing macros
 		Util.RefreshMacros();
-		
+
 	elseif (Event == "LEARNED_SPELL_IN_TAB" or Event == "SPELLS_CHANGED") then
 		--Defer processing till the onupdate since this could get slammed by a Spec Swap
 		self.PromoteSpells = true;
 		self.RefreshSpells = true;
 		self:SetScript("OnUpdate", self.OnUpdate);
-		
-	elseif (Event =="ACTIVE_TALENT_GROUP_CHANGED") then
-		--Set the talentswap flag so we know not to auto promote any spells
-		self.RefreshSpells = true;
-		self.TalentSwap = true;
-		self:SetScript("OnUpdate", self.OnUpdate);
-		
-	elseif (Event == "COMPANION_LEARNED") then
-		Util.CacheCompanions();
-		Util.RefreshCompanions();
-		
-	elseif (Event == "EQUIPMENT_SETS_CHANGED") then
-		Util.RefreshEquipmentSets();
-		
+
+	--elseif (Event =="ACTIVE_TALENT_GROUP_CHANGED") then
+	--	--Set the talentswap flag so we know not to auto promote any spells
+	--	self.RefreshSpells = true;
+	--	self.TalentSwap = true;
+	--	self:SetScript("OnUpdate", self.OnUpdate);
+
+	--elseif (Event == "COMPANION_LEARNED") then
+	--	Util.CacheCompanions();
+	--	Util.RefreshCompanions();
+
+	--elseif (Event == "EQUIPMENT_SETS_CHANGED") then
+	--	Util.RefreshEquipmentSets();
+
 	elseif (Event == "PLAYER_REGEN_DISABLED") then
 		Util.PreCombatStateUpdate();
-		
+
 	elseif (Event == "PLAYER_REGEN_ENABLED") then
 		Util.PostCombatStateUpdate();
-		
+
 	elseif (Event == "UI_SCALE_CHANGED") then
 		UILib.RescaleLines();
-		
+
 	elseif (Event == "EDITBOX_MESSAGE") then
 		self.EditBoxMessage, self.EditBox = ...;
 		self:SetScript("OnUpdate", self.OnUpdate);
@@ -511,7 +511,7 @@ function Misc:OnUpdate(Elapsed)
 		self.EditBox:SetText(self.EditBoxMessage or "");
 		self.EditBox:SetFocus();
 	end
-	
+
 	self.PromoteSpells = false;
 	self.TalentSwap = false;
 	self.RefreshSpells = false;
@@ -577,7 +577,7 @@ function Flash:OnUpdate(Elapsed)
 		else
 			FlashTime = ATTACK_BUTTON_FLASH_TIME + FlashTime;
 		end
-		
+
 		if (self.On) then
 			self.On = false;
 			for k, v in pairs(Util.FlashButtons) do

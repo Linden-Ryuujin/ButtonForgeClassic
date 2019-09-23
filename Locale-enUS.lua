@@ -1,7 +1,7 @@
 --[[
     Author: Alternator (Massiner of Nathrezim)
     Copyright 2010
-	
+
 	Notes: Primary locale (will be used if a particular locale is not loaded)
 
 	UPDATED 17-Mar-2011: Needs tidy up, also some of the terminology is becoming inconsistent
@@ -99,13 +99,13 @@ Locale["SlashHelpFormatted"]	=
 	"|c"..Const.LightBlue.."-lockbuttons <on/off>|r\n"..
 	"|c"..Const.LightBlue.."-macrotext <on/off>|r\n"..
 	"|c"..Const.LightBlue.."-keybindtext <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidespec1 <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidespec2 <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidespec3 <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidespec4 <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidevehicle <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hideoverridebar <on/off>|r\n"..
-	"|c"..Const.LightBlue.."-hidepetbattle <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidespec1 <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidespec2 <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidespec3 <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidespec4 <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidevehicle <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hideoverridebar <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-hidepetbattle <on/off>|r\n"..
 	"|c"..Const.LightBlue.."-vismacro <visibility macro>|r\n"..
 	"|c"..Const.LightBlue.."-gui <on/off>|r (off = hides bar without disabling keybinds)\n"..
 	"|c"..Const.LightBlue.."-alpha <opacity>|r (0 - 1, 1 is completely opaque)\n"..
@@ -119,18 +119,18 @@ Locale["SlashHelpFormatted"]	=
 	"|c"..Const.LightBlue.."-loadprofiletemplate <profile name>|r\n"..
 	"|c"..Const.LightBlue.."-undoprofile|r\n"..
 	"|c"..Const.LightBlue.."-deleteprofile <profile name>|r\n"..
-	"|c"..Const.LightBlue.."-listprofiles|r\n"..	
+	"|c"..Const.LightBlue.."-listprofiles|r\n"..
 	"|c"..Const.LightBlue.."-macrocheckdelay <number>|r (5 seconds is default) \n"..
 	"|c"..Const.LightBlue.."-removemissingmacros <on/off>|r\n"..
 	"|c"..Const.LightBlue.."-forceoffcastonkeydown <on/off>|r (will apply at next login)\n"..
-	"|c"..Const.LightBlue.."-usecollectionsfavoritemountbutton <on/off>|r\n"..
+	--"|c"..Const.LightBlue.."-usecollectionsfavoritemountbutton <on/off>|r\n"..
 	"|c"..Const.LightBlue.."-globalsettings|r\n"..
 	"Examples:\n"..
 	"|c"..Const.LightBlue.."/bufo -bar Mounts -tooltips off -emptybuttons off -scale 0.75|r\n"..
 	"|c"..Const.LightBlue.."/bufo -macrotext off|r\n"..
 	"|c"..Const.LightBlue.."/bufo -createbar MyNewBar -coords 800, 200 -rows 10 -cols 1|r\n"..
 	"|c"..Const.LightBlue.."/bufo -bar MyNewBar -info|r";
-	
+
 
 Locale["SlashCommandRequired"]		= "<COMMANDA> requires <COMMANDB> to also be specified";
 Locale["SlashCommandIncompatible"]	= "<COMMANDA> is incompatible with <COMMANDB>";
