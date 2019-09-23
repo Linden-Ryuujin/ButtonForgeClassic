@@ -1437,13 +1437,13 @@ function Util.ApplySlashCommands(Commands, Bar)
 					Util.GetLocaleString("InfoLock")..": "..select(2, Bar:GetButtonsLocked()).."\n"..
 					Util.GetLocaleString("InfoMacroText")..": "..select(2, Bar:GetMacroText()).."\n"..
 					Util.GetLocaleString("InfoKeybindText")..": "..select(2, Bar:GetKeyBindText()).."\n"..
-					Util.GetLocaleString("InfoHSpec1")..": "..select(2, Bar:GetHSpec1()).."\n"..
-					Util.GetLocaleString("InfoHSpec2")..": "..select(2, Bar:GetHSpec2()).."\n"..
-					Util.GetLocaleString("InfoHSpec3")..": "..select(2, Bar:GetHSpec3()).."\n"..
-					Util.GetLocaleString("InfoHSpec4")..": "..select(2, Bar:GetHSpec4()).."\n"..
-					Util.GetLocaleString("InfoHVehicle")..": "..select(2, Bar:GetHVehicle()).."\n"..
-					Util.GetLocaleString("InfoHBonusBar5")..": "..select(2, Bar:GetHBonusBar()).."\n"..
-					Util.GetLocaleString("InfoHPetBattle")..": "..select(2, Bar:GetHPetBattle()).."\n"..
+					--Util.GetLocaleString("InfoHSpec1")..": "..select(2, Bar:GetHSpec1()).."\n"..
+					--Util.GetLocaleString("InfoHSpec2")..": "..select(2, Bar:GetHSpec2()).."\n"..
+					--Util.GetLocaleString("InfoHSpec3")..": "..select(2, Bar:GetHSpec3()).."\n"..
+					--Util.GetLocaleString("InfoHSpec4")..": "..select(2, Bar:GetHSpec4()).."\n"..
+					--Util.GetLocaleString("InfoHVehicle")..": "..select(2, Bar:GetHVehicle()).."\n"..
+					--Util.GetLocaleString("InfoHBonusBar5")..": "..select(2, Bar:GetHBonusBar()).."\n"..
+					--Util.GetLocaleString("InfoHPetBattle")..": "..select(2, Bar:GetHPetBattle()).."\n"..
 					Util.GetLocaleString("InfoVisibilityMacro")..": "..(Bar:GetVD() or "").."\n"..
 					Util.GetLocaleString("InfoGUI")..": "..select(2, Bar:GetGUI()).."\n"..
 					Util.GetLocaleString("InfoAlpha")..": "..Bar:GetAlpha().."\n"..
